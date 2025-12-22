@@ -21,16 +21,16 @@ public class ChatBotConfig {
 
     @Bean
     public AstraDbEmbeddingStore astraDbEmbeddingStore() {
-        String astraToken = "AstraCS:IKCAkpcnsofpnGifLDLgQLSk:54fc9ea6332d8e535d306b10a9c6752250358ef1b08d1d5668fd61603b9c35bb";
-        String databaseId = "23586df0-ae9d-4d35-8f29-9140993e35cb";
+        String astraToken = "AstraCS:bXgpoFBlnuklLnZDmpODUXOO:dfa7a379af47c49cac6c4e26d611372e729edb0943d1bc2b149ab91919e81708";
+        String databaseId = "287f8861-03b9-482b-9479-82d945f3aef9";
 
         return new AstraDbEmbeddingStore(AstraDbEmbeddingConfiguration
                 .builder()
                 .token(astraToken)
                 .databaseId(databaseId)
                 .databaseRegion("us-east1")
-                .keyspace("pdfassistant")
-                .table("pdfchat")
+                .keyspace("chatbotassistant")
+                .table("ChatBot")
                 .dimension(384)
                 .build());
     }

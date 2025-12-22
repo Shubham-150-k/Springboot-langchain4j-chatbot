@@ -24,7 +24,7 @@ public class ChatBotApplication {
 
     @PostConstruct
     public void init() {
-        Document document = loadDocument(toPath("cassandra.pdf"), new ApachePdfBoxDocumentParser());
+        Document document = loadDocument(toPath("IndiasChandrayaanMissions.pdf"), new ApachePdfBoxDocumentParser());
         embeddingStoreIngestor.ingest(document);
     }
 
