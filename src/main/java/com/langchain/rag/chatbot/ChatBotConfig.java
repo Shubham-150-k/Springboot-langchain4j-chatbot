@@ -21,8 +21,8 @@ public class ChatBotConfig {
 
     @Bean
     public AstraDbEmbeddingStore astraDbEmbeddingStore() {
-        String astraToken = "AstraCS:IKCAkpcnsofpnGifLDLgQLSk:54fc9ea6332d8e535d306b10a9c6752250358ef1b08d1d5668fd61603b9c35bb";
-        String databaseId = "23586df0-ae9d-4d35-8f29-9140993e35cb";
+        String astraToken = "AstraCS:IKCAkpcnsofpnGifLDLgQLSk:54fc9ea6332d8e535d306b10a9c6752250358ef1b3b9c35bb";
+        String databaseId = "23586df0-ae9d-4d35-8f29-90";
 
         return new AstraDbEmbeddingStore(AstraDbEmbeddingConfiguration
                 .builder()
@@ -47,7 +47,7 @@ public class ChatBotConfig {
     @Bean
     public ConversationalRetrievalChain conversationalRetrievalChain() {
         return ConversationalRetrievalChain.builder()
-                .chatLanguageModel(OpenAiChatModel.withApiKey("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"))
+                .chatLanguageModel(OpenAiChatModel.withApiKey("sk-proj-HrW-7N02YD6l99psHbDDnbxPEDiEU02wHTqESmarHfp_NJDskR_n5wYX3e25T3BlbkFJG28OKbAcapN9tcZQ-DVg2OQcJU7-8d9kyDna_f9d5TN9vn6rxrimbihhxoIm0j7Va5xO9sCVwA"))
                 .retriever(EmbeddingStoreRetriever.from(astraDbEmbeddingStore(), embeddingModel()))
                 .build();
     }
