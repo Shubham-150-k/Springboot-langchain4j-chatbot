@@ -3,13 +3,10 @@ package com.langchain.rag.chatbot;
 import dev.langchain4j.chain.ConversationalRetrievalChain;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/chat")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 @Slf4j
 public class ChatController {
@@ -21,5 +18,10 @@ public class ChatController {
         var answer = conversationalRetrievalChain.execute(text);
         log.debug("Answer is - {}", answer);
         return answer;
+    }
+
+    @GetMapping("/ping")
+    public String ping() {
+        return "pong";
     }
 }

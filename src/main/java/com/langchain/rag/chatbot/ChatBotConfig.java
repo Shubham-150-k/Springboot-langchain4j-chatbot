@@ -4,7 +4,7 @@ import dev.langchain4j.chain.ConversationalRetrievalChain;
 import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.model.embedding.AllMiniLmL6V2EmbeddingModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
-import dev.langchain4j.model.openai.OpenAiChatModel;
+import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.retriever.EmbeddingStoreRetriever;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.cassandra.AstraDbEmbeddingConfiguration;
@@ -13,14 +13,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
+
 @Configuration
 public class ChatBotConfig {
 
     @Value("${ASTRA_DB_APPLICATION_TOKEN}")
     private String astraToken;
 
-    @Value("${OPENAI_API_KEY}")
-    private String openAiKey;
+    //@Value("${huggingFaceApiKey}")
+   // private String huggingFaceApiKey;
 
     @Value("${ASTRA_DB_ID}")
     private String databaseId;
@@ -55,9 +57,26 @@ public class ChatBotConfig {
 
     @Bean
     public ConversationalRetrievalChain conversationalRetrievalChain() {
-        return ConversationalRetrievalChain.builder()
+        /*return ConversationalRetrievalChain.builder()
                 .chatLanguageModel(OpenAiChatModel.withApiKey(openAiKey))
                 .retriever(EmbeddingStoreRetriever.from(astraDbEmbeddingStore(), embeddingModel()))
+                .build();*/
+
+        return ConversationalRetrievalChain.builder()
+                .chatLanguageModel(
+                        OllamaChatModel.builder()
+                                .baseUrl("http://localhost:11434")
+                                .modelName("gemma3:1b")
+                                .temperature(0.2)
+                                .timeout(Duration.ofSeconds(120))
+                                .build()
+                )
+                .retriever(
+                        EmbeddingStoreRetriever.from(
+                                astraDbEmbeddingStore(),
+                                embeddingModel()
+                        )
+                )
                 .build();
     }
 }
